@@ -1,0 +1,19 @@
+version: "3.7"
+
+volumes:
+  conspectus-share-postgres:
+    external: true
+
+services:
+  postgres:
+    image: postgres:13.3
+    restart: on-failure
+    container_name: conspectus-share-postgres
+    environment:
+      POSTGRES_DB: "conspectus-share"
+      POSTGRES_USER: "conspectus-share-user"
+      POSTGRES_PASSWORD: "qwerty123"
+    ports:
+      - "5432:5432"
+    volumes:
+    - conspectus-share-postgres:/var/lib/postgresql/data
