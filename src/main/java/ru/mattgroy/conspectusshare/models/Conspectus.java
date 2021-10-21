@@ -1,4 +1,4 @@
-package ru.mattgroy.conspectusshare.Models;
+package ru.mattgroy.conspectusshare.models;
 
 import lombok.Getter;
 import lombok.Setter;

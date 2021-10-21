@@ -1,7 +1,7 @@
-package ru.mattgroy.conspectusshare.Services;
+package ru.mattgroy.conspectusshare.services;
 
 import com.sun.istack.NotNull;
-import ru.mattgroy.conspectusshare.Models.User;
+import ru.mattgroy.conspectusshare.models.User;
 
 import java.util.List;
 

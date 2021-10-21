@@ -1,12 +1,12 @@
-package ru.mattgroy.conspectusshare.Services;
+package ru.mattgroy.conspectusshare.services;
 
 import com.sun.istack.NotNull;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.mattgroy.conspectusshare.Models.Subject;
-import ru.mattgroy.conspectusshare.Repositories.SubjectRepository;
+import ru.mattgroy.conspectusshare.models.Subject;
+import ru.mattgroy.conspectusshare.repositories.SubjectRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;

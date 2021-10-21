@@ -1,10 +1,10 @@
-package ru.mattgroy.conspectusshare.Controllers;
+package ru.mattgroy.conspectusshare.controllers;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.mattgroy.conspectusshare.Models.Conspectus;
-import ru.mattgroy.conspectusshare.Services.ConspectusService;
+import ru.mattgroy.conspectusshare.models.Conspectus;
+import ru.mattgroy.conspectusshare.services.ConspectusService;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
