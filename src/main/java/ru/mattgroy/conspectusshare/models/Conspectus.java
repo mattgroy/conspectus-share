@@ -1,4 +1,4 @@
-package ru.mattgroy.conspectusshare.Models;
+package ru.mattgroy.conspectusshare.models;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,19 +12,19 @@ import java.io.Serializable;
 @Table(name = "conspectuses")
 public class Conspectus implements Serializable {
     @Id
-    private Long Id;
+    private Long id;
 
     @Column
-    private String Name;
+    private String name;
 
     @Column(name="conspectus_markdown")
-    private String ConspectusMarkdown;
+    private String conspectusMarkdown;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "subject_id")
-    private Subject Subject;
+    private Subject subject;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    private User Owner;
+    private User owner;
 }

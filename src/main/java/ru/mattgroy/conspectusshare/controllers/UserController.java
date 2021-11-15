@@ -1,10 +1,12 @@
-package ru.mattgroy.conspectusshare.Controllers;
+package ru.mattgroy.conspectusshare.controllers;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.mattgroy.conspectusshare.Models.User;
-import ru.mattgroy.conspectusshare.Services.UserService;
+import ru.mattgroy.conspectusshare.models.User;
+import ru.mattgroy.conspectusshare.services.UserService;
+
+import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -15,13 +17,18 @@ public class UserController {
     @NonNull
     private UserService userService;
 
+    @GetMapping(value = "/", produces = APPLICATION_JSON_VALUE)
+    public List<User> getAllUsers() {
+        return userService.findAll();
+    }
+
     @GetMapping(value = "/{userId}", produces = APPLICATION_JSON_VALUE)
     public User findById(@PathVariable Long userId) {
-        return userService.findById(userId);
+        return userService.findUserById(userId);
     }
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public User create(@RequestBody User request) {
+    public User saveUser(@RequestBody User request) {
         return userService.createUser(request);
     }
 }

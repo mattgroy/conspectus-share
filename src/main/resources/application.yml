@@ -1,0 +1,24 @@
+spring:
+  logging:
+    level:
+      org.springframework.security: DEBUG
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/conspectus-share
+    username: conspectus-share-user
+    password: qwerty123
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 904860883700-ligvjdoar3u56php2jfr8464b656uun9.apps.googleusercontent.com
+            client-secret: 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
+            scope: email,profile
