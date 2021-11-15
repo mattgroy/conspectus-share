@@ -11,10 +11,9 @@ public interface UserService {
     List<User> findAll();
 
     @NotNull
-    User findById(@NotNull Long userId);
+    User findUserById(@NotNull Long userId);
 
-    @NotNull
     User createUser(@NotNull User request);
 
-    void delete(@NotNull Long userId);
+    boolean deleteUser(@NotNull Long userId);
 }

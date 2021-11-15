@@ -14,20 +14,20 @@ import javax.persistence.Table;
 @Table(name = "subjects")
 public class Subject {
     @Id
-    private Long Id;
+    private Long id;
 
     @Column
-    private String Name;
+    private String name;
 
     @Column
-    private String Description;
+    private String description;
 
     @Column(name = "lecturer_name")
-    private String LecturerName;
+    private String lecturerName;
 
     @Column
-    private int Course;
+    private int course;
 
     @Column
-    private int Year;
+    private int year;
 }

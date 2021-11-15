@@ -11,17 +11,21 @@ import javax.persistence.*;
 @Table(name = "users")
 public class User {
     @Id
-    private Long Id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
-    private String FirstName;
+    private String firstName;
 
     @Column
-    private String LastName;
+    private String lastName;
 
     @Column
-    private String MiddleName;
+    private String middleName;
 
     @Column
-    private String Email;
+    private String email;
+
+    public User() {
+    }
 }
