@@ -28,9 +28,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                     .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 .and()
-                .csrf()
-                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .and()
+                .csrf().disable()
+//                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).
+                //.and()
                 .logout()
                     .logoutSuccessUrl("/").permitAll()
                 .and()
@@ -41,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .successHandler((request, response, authentication) -> {
                     GoogleUser oauthUser = (GoogleUser) authentication.getPrincipal();
                     userService.processOAuthPostLogin(oauthUser);
-                    response.sendRedirect("/users");
+                    response.sendRedirect("/conspectus/register");
                 })
                 .failureHandler((request, response, exception) -> {
                     request.getSession().setAttribute("error.message", exception.getMessage());

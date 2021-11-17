@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    Добро пожаловать, <i th:text="${userName}"></i>!
+</head>
+<body>
+<div>
+    <button onclick="location.href = '/conspectus/save';" id="myButton" class="float-left submit-button" >Добавить свой конспект</button>
+</div>
+<h1>Список доступных конспектов</h1>
+<table>
+    <tr>
+        <th>Наименование конспекта</th>
+        <th>Наименование предмета</th>
+        <th>Имя лектора</th>
+        <th>Описание предмета</th>
+        <th>Курс</th>
+        <th>Год</th>
+        <th>Скачать конспект</th>
+    </tr>
+    <tr th:each="conspectus : ${conspectuses}" >
+        <td th:text="${conspectus.name}"></td>
+        <td th:text="${conspectus.subject.name}"></td>
+        <td th:text="${conspectus.subject.lecturerName}"></td>
+        <td th:text="${conspectus.subject.description}"></td>
+        <td th:text="${conspectus.subject.course}"></td>
+        <td th:text="${conspectus.subject.year}"></td>
+        <td><a th:href="@{/conspectus/file(conspectusId=${conspectus.id})}" >Скачать файл</a></td>
+    </tr>
+</table>
+</body>
+</html>

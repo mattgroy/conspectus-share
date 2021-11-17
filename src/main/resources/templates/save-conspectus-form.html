@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/conspectus/save" method="post">
+    <div>
+        <div>
+            <label>Название:</label>
+            <input type="text" th:value="${conspectus.name}" name="name"/>
+        </div>
+        <div>
+            <label>Текст конспекта:</label>
+            <textarea type="text" th:value="${conspectus.conspectusMarkdown}" name="conspectusMarkdown"></textarea>
+        </div>
+        <div>
+            <label>Предмет:</label>
+            <select th:value="${conspectus.subjectId}" name="subjectId">
+                <option th:each="subject : ${subjects}" th:value="${subject.id}" th:text="${subject.name}">
+                </option>
+            </select>
+        </div>
+    </div>
+    <div>
+        <button type="submit">Добавить конспект</button>
+    </div>
+</form>
+</body>
+</html>

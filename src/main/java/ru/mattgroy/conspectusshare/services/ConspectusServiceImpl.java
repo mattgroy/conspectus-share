@@ -36,7 +36,7 @@ public class ConspectusServiceImpl implements ConspectusService{
     @NotNull
     @Override
     @Transactional
-    public Conspectus createUser(@NotNull Conspectus request) {
+    public Conspectus createConspectus(@NotNull Conspectus request) {
         return conspectusRepository.save(request);
     }
 
