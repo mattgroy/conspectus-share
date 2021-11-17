@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.mattgroy.conspectusshare.models.User;
 import ru.mattgroy.conspectusshare.services.UserService;
 
+import java.security.Principal;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -17,8 +18,9 @@ public class UserController {
     @NonNull
     private UserService userService;
 
-    @GetMapping(value = "/", produces = APPLICATION_JSON_VALUE)
-    public List<User> getAllUsers() {
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
+    public List<User> getAllUsers(Principal principal) {
+//        ((OAuth2AuthenticationToken) principal).getPrincipal().getAttribute("email")
         return userService.findAll();
     }
 
