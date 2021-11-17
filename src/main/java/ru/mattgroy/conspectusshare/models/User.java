@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.Instant;
 
 @Getter
 @Setter
@@ -15,17 +16,23 @@ public class User {
     private Long id;
 
     @Column
+    private String principalId;
+
+    @Column
     private String firstName;
 
     @Column
     private String lastName;
 
     @Column
-    private String middleName;
-
-    @Column
     private String email;
 
-    public User() {
-    }
+    @Column
+    private String photo;
+
+    @Column
+    private Instant created;
+
+    @Column
+    private Instant lastLogin;
 }

@@ -2,11 +2,12 @@ package ru.mattgroy.conspectusshare.controllers;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import ru.mattgroy.conspectusshare.models.CustomOAuth2User;
 import ru.mattgroy.conspectusshare.models.User;
 import ru.mattgroy.conspectusshare.services.UserService;
 
-import java.security.Principal;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -19,8 +20,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)
-    public List<User> getAllUsers(Principal principal) {
-//        ((OAuth2AuthenticationToken) principal).getPrincipal().getAttribute("email")
+    public List<User> getAllUsers(@AuthenticationPrincipal CustomOAuth2User oauth2User) {
+//        oauth2User.getPrincipalId();
         return userService.findAll();
     }
 

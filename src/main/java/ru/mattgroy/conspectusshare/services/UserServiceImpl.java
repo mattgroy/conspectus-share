@@ -6,11 +6,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.mattgroy.conspectusshare.models.GoogleUser;
+import ru.mattgroy.conspectusshare.models.CustomOAuth2User;
 import ru.mattgroy.conspectusshare.models.User;
 import ru.mattgroy.conspectusshare.repositories.UserRepository;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,12 +44,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-//    @Override
-//    @Transactional
-//    public void deleteUser(@NotNull Long userId) {
-//        userRepository.deleteById(userId);
-//    }
-
     @Override
     public boolean deleteUser(Long userId) {
         if (userRepository.findById(userId).isPresent()) {
@@ -58,15 +53,19 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    public void processOAuthPostLogin(GoogleUser googleUser) {
-        User existUser = userRepository.findByEmail(googleUser.getEmail());
+    public void processOAuthPostLogin(CustomOAuth2User oauth2User) {
+        User user = userRepository.findByPrincipalId(oauth2User.getPrincipalId());
 
-        if (existUser == null) {
-            User newUser = new User();
-            newUser.setFirstName(googleUser.getGivenName());
-            newUser.setLastName(googleUser.getFamilyName());
-            newUser.setEmail(googleUser.getEmail());
-            createUser(newUser);
+        if (user == null) {
+            user = new User();
+            user.setPrincipalId(oauth2User.getPrincipalId());
+            user.setCreated(Instant.now());
+            user.setEmail(oauth2User.getEmail());
+            user.setFirstName(oauth2User.getFirstName());
+            user.setLastName(oauth2User.getLastName());
+            user.setPhoto(oauth2User.getPhoto());
         }
+        user.setLastLogin(Instant.now());
+        userRepository.save(user);
     }
 }
