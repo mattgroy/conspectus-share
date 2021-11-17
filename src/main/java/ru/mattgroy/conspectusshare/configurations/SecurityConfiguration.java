@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import ru.mattgroy.conspectusshare.models.CustomOAuth2User;
 import ru.mattgroy.conspectusshare.models.GoogleUser;
 import ru.mattgroy.conspectusshare.services.GoogleUserService;
@@ -29,9 +28,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                     .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 .and()
-                .csrf()
-                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .and()
+                .csrf().disable()
+//                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).
+                //.and()
                 .logout()
                     .logoutSuccessUrl("/").permitAll()
                 .and()
@@ -42,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .successHandler((request, response, authentication) -> {
                         CustomOAuth2User oauth2User = (GoogleUser) authentication.getPrincipal();
                         userService.processOAuthPostLogin(oauth2User);
-                        response.sendRedirect("/users");
+                        response.sendRedirect("/conspectus/register");
                     })
                     .failureHandler((request, response, exception) -> {
                         request.getSession().setAttribute("error.message", exception.getMessage());

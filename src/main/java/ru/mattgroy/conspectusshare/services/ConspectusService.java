@@ -1,6 +1,7 @@
 package ru.mattgroy.conspectusshare.services;
 
 import com.sun.istack.NotNull;
+import org.springframework.transaction.annotation.Transactional;
 import ru.mattgroy.conspectusshare.models.Conspectus;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface ConspectusService {
     Conspectus findById(@NotNull Long conspectusId);
 
     @NotNull
-    Conspectus createUser(@NotNull Conspectus request);
+    Conspectus createConspectus(@NotNull Conspectus request);
 
     void delete(@NotNull Long userId);
 }
