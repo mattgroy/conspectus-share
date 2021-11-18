@@ -11,7 +11,10 @@ public interface UserService {
     List<User> findAll();
 
     @NotNull
-    User findUserById(@NotNull Long userId);
+    User findById(@NotNull Long userId);
+
+    @NotNull
+    User findByPrincipalId(@NotNull String principalId);
 
     User createUser(@NotNull User request);
 

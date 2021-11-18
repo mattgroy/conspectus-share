@@ -27,7 +27,7 @@ public class UserController {
 
     @GetMapping(value = "/{userId}", produces = APPLICATION_JSON_VALUE)
     public User findById(@PathVariable Long userId) {
-        return userService.findUserById(userId);
+        return userService.findById(userId);
     }
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)

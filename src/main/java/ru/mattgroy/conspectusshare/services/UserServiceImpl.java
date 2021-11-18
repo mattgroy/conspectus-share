@@ -32,9 +32,17 @@ public class UserServiceImpl implements UserService {
     @NotNull
     @Override
     @Transactional(readOnly = true)
-    public User findUserById(@NotNull Long userId) {
+    public User findById(@NotNull Long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User " + userId + " is not found"));
+                .orElseThrow(() -> new EntityNotFoundException("User with id" + userId + " was not found"));
+    }
+
+    @NotNull
+    @Override
+    @Transactional(readOnly = true)
+    public User findByPrincipalId(@NotNull String principalId) {
+        return userRepository.findByPrincipalId(principalId)
+                .orElseThrow(() -> new EntityNotFoundException("User with principal id" + principalId + " was not found"));
     }
 
     @NotNull
@@ -54,17 +62,10 @@ public class UserServiceImpl implements UserService {
     }
 
     public void processOAuthPostLogin(CustomOAuth2User oauth2User) {
-        User user = userRepository.findByPrincipalId(oauth2User.getPrincipalId());
+        User user = userRepository
+                .findByPrincipalId(oauth2User.getPrincipalId())
+                .orElse(new User(oauth2User));
 
-        if (user == null) {
-            user = new User();
-            user.setPrincipalId(oauth2User.getPrincipalId());
-            user.setCreated(Instant.now());
-            user.setEmail(oauth2User.getEmail());
-            user.setFirstName(oauth2User.getFirstName());
-            user.setLastName(oauth2User.getLastName());
-            user.setPhoto(oauth2User.getPhoto());
-        }
         user.setLastLogin(Instant.now());
         userRepository.save(user);
     }

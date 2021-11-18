@@ -2,20 +2,21 @@ package ru.mattgroy.conspectusshare.controllers;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.mattgroy.conspectusshare.Dto.SaveConspectusDto;
 import ru.mattgroy.conspectusshare.models.Conspectus;
+import ru.mattgroy.conspectusshare.models.CustomOAuth2User;
 import ru.mattgroy.conspectusshare.models.Subject;
-import ru.mattgroy.conspectusshare.models.User;
 import ru.mattgroy.conspectusshare.services.ConspectusService;
 import ru.mattgroy.conspectusshare.services.SubjectService;
+import ru.mattgroy.conspectusshare.services.UserService;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.Principal;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -27,12 +28,14 @@ public class ConspectusController {
     private ConspectusService conspectusService;
     @NonNull
     private SubjectService subjectService;
+    @NonNull
+    private UserService userService;
 
     @GetMapping("/register")
-    public String register(Principal principal, Model model) {
+    public String register(@AuthenticationPrincipal CustomOAuth2User oauth2User, Model model) {
         var conspectuses = conspectusService.findAll();
         model.addAttribute("conspectuses", conspectuses);
-        model.addAttribute("userName", principal.getName());
+        model.addAttribute("userName", oauth2User.getName());
         return "conspectus-registry";
     }
 
@@ -50,15 +53,14 @@ public class ConspectusController {
     }
 
     @PostMapping(value = "/save")
-    public String create(SaveConspectusDto conspectus) {
+    public String create(@AuthenticationPrincipal CustomOAuth2User oauth2User, SaveConspectusDto conspectus) {
         var newConspectus = new Conspectus();
         newConspectus.setConspectusMarkdown(conspectus.getConspectusMarkdown());
         var subject = new Subject();
         subject.setId(conspectus.getSubjectId());
         newConspectus.setSubject(subject);
         newConspectus.setName(conspectus.getName());
-        var owner = new User();
-        owner.setId(1l);
+        var owner = userService.findByPrincipalId(oauth2User.getPrincipalId());
         newConspectus.setOwner(owner);
         conspectusService.createConspectus(newConspectus);
         return "redirect:/conspectus/register";
