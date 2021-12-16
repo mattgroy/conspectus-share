@@ -5,6 +5,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.mattgroy.conspectusshare.Dto.FindConspectusDto;
 import ru.mattgroy.conspectusshare.models.Conspectus;
 import ru.mattgroy.conspectusshare.repositories.ConspectusRepository;
 
@@ -44,5 +45,10 @@ public class ConspectusServiceImpl implements ConspectusService{
     @Transactional
     public void delete(@NotNull Long conspectusId) {
         conspectusRepository.deleteById(conspectusId);
+    }
+
+    @Override
+    public List<Conspectus> find(FindConspectusDto findConspectusDto) {
+        return null;
     }
 }
