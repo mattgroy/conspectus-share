@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class FindConspectusDto {
     private String name;
-    private int course;
-    private int year;
+    private Integer course;
+    private Integer year;
     private Long subjectId;
 }

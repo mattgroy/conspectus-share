@@ -9,6 +9,32 @@
     <button onclick="location.href = '/conspectus/save';" id="myButton" class="float-left submit-button" >Добавить свой конспект</button>
 </div>
 <h1>Список доступных конспектов</h1>
+<form action="/conspectus/find" method="post">
+    <div>
+        <div>
+            <label>Название:</label>
+            <input type="text" th:value="${conspectusSearchModel.name}" name="name"/>
+        </div>
+        <div>
+            <label>Предмет:</label>
+            <select th:value="${conspectusSearchModel.subjectId}" name="subjectId">
+                <option th:each="subject : ${subjects}" th:value="${subject.id}" th:text="${subject.name}">
+                </option>
+            </select>
+        </div>
+        <div>
+            <label>Год:</label>
+            <input type="number" th:value="${conspectusSearchModel.course}" name="course"/>
+        </div>
+        <div>
+            <label>Курс:</label>
+            <input type="number" th:value="${conspectusSearchModel.year}" name="year"/>
+        </div>
+    </div>
+    <div>
+        <button type="submit">Поиск конспектов</button>
+    </div>
+</form>
 <table>
     <tr>
         <th>Наименование конспекта</th>

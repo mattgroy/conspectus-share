@@ -6,6 +6,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.mattgroy.conspectusshare.Dto.FindConspectusDto;
 import ru.mattgroy.conspectusshare.Dto.SaveConspectusDto;
 import ru.mattgroy.conspectusshare.models.Conspectus;
 import ru.mattgroy.conspectusshare.models.CustomOAuth2User;
@@ -36,6 +37,14 @@ public class ConspectusController {
         var conspectuses = conspectusService.findAll();
         model.addAttribute("conspectuses", conspectuses);
         model.addAttribute("userName", oauth2User.getName());
+        model.addAttribute("conspectusSearchModel", new FindConspectusDto());
+        var subjects = subjectService.findAll();
+        var emptySubject = new Subject();
+        emptySubject.setId(null);
+        emptySubject.setName("Выберите предмет");
+        subjects.add(0, emptySubject);
+        model.addAttribute("subjects", subjects);
+
         return "conspectus-registry";
     }
 
@@ -47,7 +56,12 @@ public class ConspectusController {
     @GetMapping(value = "/save")
     public String getSaveConspectusPage(Model model) {
         model.addAttribute("conspectus", new SaveConspectusDto());
-        model.addAttribute("subjects", subjectService.findAll());
+        var subjects = subjectService.findAll();
+        var emptySubject = new Subject();
+        emptySubject.setId(null);
+        emptySubject.setName("Выберите предмет");
+        subjects.add(0, emptySubject);
+        model.addAttribute("subjects", subjects);
 
         return "save-conspectus-form";
     }
@@ -64,6 +78,21 @@ public class ConspectusController {
         newConspectus.setOwner(owner);
         conspectusService.createConspectus(newConspectus);
         return "redirect:/conspectus/register";
+    }
+
+    @PostMapping(value = "/find")
+    public String find(@AuthenticationPrincipal CustomOAuth2User oauth2User, Model model, FindConspectusDto searchModel) {
+        var conspectuses = conspectusService.findAll();
+        model.addAttribute("conspectuses", conspectuses);
+        model.addAttribute("userName", oauth2User.getName());
+        model.addAttribute("conspectusSearchModel", new FindConspectusDto());
+        var subjects = subjectService.findAll();
+        var emptySubject = new Subject();
+        emptySubject.setId(null);
+        emptySubject.setName("Выберите предмет");
+        subjects.add(0, emptySubject);
+        model.addAttribute("subjects", subjects);
+        return "conspectus-registry";
     }
 
     @GetMapping(value = "/file")
