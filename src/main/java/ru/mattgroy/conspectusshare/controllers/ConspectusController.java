@@ -82,7 +82,7 @@ public class ConspectusController {
 
     @PostMapping(value = "/find")
     public String find(@AuthenticationPrincipal CustomOAuth2User oauth2User, Model model, FindConspectusDto searchModel) {
-        var conspectuses = conspectusService.findAll();
+        var conspectuses = conspectusService.find(searchModel);
         model.addAttribute("conspectuses", conspectuses);
         model.addAttribute("userName", oauth2User.getName());
         model.addAttribute("conspectusSearchModel", new FindConspectusDto());
