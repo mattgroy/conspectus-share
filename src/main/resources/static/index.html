@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Demo</title>
+  <title>Обмен конспектами</title>
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width" />
   <base href="/" />
@@ -14,15 +14,15 @@
           src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1>Login</h1>
+<h1>Войти</h1>
 <div class="container text-danger error"></div>
 <div class="container unauthenticated">
-  With Google: <a href="/oauth2/authorization/google">click here</a>
+<a href="/oauth2/authorization/google">С помощью Google</a>
 </div>
 <div class="container authenticated" style="display: none">
-  Logged in as: <span id="user"></span>
+  Вошли как: <span id="user"></span>
   <div>
-    <button onClick="logout()" class="btn btn-primary">Logout</button>
+    <button onClick="logout()" class="btn btn-primary">Выйти</button>
   </div>
 </div>
 <script type="text/javascript" src="/webjars/js-cookie/js.cookie.js"></script>

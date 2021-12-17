@@ -43,6 +43,7 @@
         <th>Описание предмета</th>
         <th>Курс</th>
         <th>Год</th>
+        <th>Автор конспекта</th>
         <th>Скачать конспект</th>
     </tr>
     <tr th:each="conspectus : ${conspectuses}" >
@@ -52,6 +53,7 @@
         <td th:text="${conspectus.subject.description}"></td>
         <td th:text="${conspectus.subject.course}"></td>
         <td th:text="${conspectus.subject.year}"></td>
+        <td th:text="${conspectus.owner.lastName}"></td>
         <td><a th:href="@{/conspectus/file(conspectusId=${conspectus.id})}" >Скачать файл</a></td>
     </tr>
 </table>
